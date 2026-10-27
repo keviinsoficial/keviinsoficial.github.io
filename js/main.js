@@ -49,7 +49,7 @@ const defaultConfig = {
     discordTag: "Keviin",
     themeColor: "#ff2a4b",
     songTitle: "After Dark × Sweater Weather",
-    songUrl: "audio/cancion.mp3",
+    songUrl: "https://cdn.pixabay.com/download/audio/2022/05/27/audio_1808fbf07a.mp3?filename=lofi-study-112191.mp3",
     bullets: defaultBullets,
     metrics: defaultMetrics,
     communityDesc: "Unete a mi comunidad de discord, siempre estoy disponible para hablar o jugar.",
