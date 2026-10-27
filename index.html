@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Keviin - Portafolio Profesional</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;800;900&family=Space+Grotesk:wght@600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+    <div class="background-effects">
+        <div class="grid-overlay"></div>
+        <div class="glow-orb orb-1" id="orb1"></div>
+        <div class="glow-orb orb-2" id="orb2"></div>
+        <div id="particlesContainer" class="particles-container"></div>
+    </div>
+
+    <!-- REPRODUCTOR DE AUDIO -->
+    <audio id="bgMusic" loop preload="auto"></audio>
+
+    <nav class="navbar">
+        <div class="logo">
+            <span class="logo-accent" id="logoText">Keviin</span>
+            <span class="status-dot"></span>
+        </div>
+        
+        <div class="nav-links" id="navigationMenu"></div>
+        
+        <div class="navbar-right-group">
+            <!-- CONTADOR DE VISITAS FUNCIONAL -->
+            <div class="visitor-counter-badge" title="Visitas totales en vivo">
+                <i class="fas fa-eye"></i> <span id="visitorCounterNum" class="visitor-num">1,421</span>
+            </div>
+
+            <!-- REPRODUCTOR DE MÚSICA REEMPLAZANDO A V2.6.0 -->
+            <div class="music-player-widget" id="musicPlayerBtn" onclick="toggleMusic()">
+                <div class="music-bars" id="musicBars">
+                    <span></span><span></span><span></span>
+                </div>
+                <div class="music-info">
+                    <span class="song-title" id="songTitleDisplay">After Dark × Sweater Weather</span>
+                </div>
+                <div class="music-tooltip" id="musicTooltip">Click para reproducir / pausar</div>
+            </div>
+        </div>
+    </nav>
+
+    <main class="main-container">
+        <div id="cardsStage" class="cards-stage"></div>
+    </main>
+
+    <div class="toast" id="toastNotification">Copiado al portapapeles</div>
+
+    <script src="js/main.js"></script>
+</body>
+</html>

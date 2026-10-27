@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Terminal de Control - Keviin</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@600;700&family=Plus+Jakarta+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/styles.css">
+    <style>
+        body { overflow: auto !important; height: auto !important; background: #08080a; padding: 40px 20px; }
+        .admin-page-container { max-width: 950px; margin: 0 auto; }
+        .admin-card { background: rgba(14, 14, 18, 0.95); border: 1px solid rgba(255, 42, 75, 0.3); border-radius: 20px; padding: 35px; box-shadow: 0 0 50px rgba(255, 42, 75, 0.2); }
+        .admin-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid rgba(255, 255, 255, 0.1); padding-bottom: 20px; margin-bottom: 30px; }
+        .admin-title { font-family: 'Outfit', sans-serif; font-size: 24px; color: #fff; font-weight: 700; }
+        .admin-tabs { display: flex; gap: 10px; margin-bottom: 25px; border-bottom: 1px solid rgba(255,255,255,0.08); padding-bottom: 12px; overflow-x: auto; }
+        .atab-btn { background: transparent; border: 1px solid transparent; color: #a0a0ab; padding: 10px 18px; border-radius: 8px; font-weight: 700; cursor: pointer; transition: all 0.2s; white-space: nowrap; font-size: 13px; }
+        .atab-btn.active { background: #ff2a4b; color: #fff; box-shadow: 0 0 15px rgba(255, 42, 75, 0.4); }
+        .form-section { display: none; }
+        .form-section.active { display: block; }
+        .card-editor-row { background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.08); padding: 18px; border-radius: 12px; margin-bottom: 12px; }
+        .user-badge { display: inline-flex; align-items: center; gap: 8px; background: rgba(255,42,75,0.15); border: 1px solid rgba(255,42,75,0.3); padding: 4px 12px; border-radius: 20px; color: #ff2a4b; font-size: 12px; font-weight: 700; }
+        .file-uploader-box { display: flex; gap: 20px; align-items: center; background: rgba(0,0,0,0.4); border: 1px dashed rgba(255, 42, 75, 0.4); padding: 20px; border-radius: 14px; margin-top: 10px; }
+        .preview-avatar { width: 80px; height: 80px; border-radius: 12px; object-fit: cover; border: 2px solid #ff2a4b; }
+    </style>
+</head>
+<body>
+    <div class="admin-page-container">
+        <div class="admin-card">
+            
+            <div id="authBlock">
+                <div class="admin-header">
+                    <h1 class="admin-title"><i class="fas fa-terminal" style="color: #ff2a4b;"></i> TERMINAL DE ACCESO</h1>
+                </div>
+                <p style="color: #a0a0ab; margin-bottom: 20px;">Acceso restringido. Ingresa con tus credenciales de Administrador:</p>
+                <div class="form-group">
+                    <label>Usuario o Correo Electrónico:</label>
+                    <input type="text" id="loginUser" class="form-input" placeholder="Ej: keviin@admin.com">
+                </div>
+                <div class="form-group">
+                    <label>Contraseña:</label>
+                    <input type="password" id="loginPass" class="form-input" placeholder="Tu contraseña">
+                </div>
+                <button class="btn btn-primary" onclick="verifyLogin()"><i class="fas fa-sign-in-alt"></i> INICIAR SESIÓN</button>
+            </div>
+
+            <div id="panelBlock" style="display: none;">
+                <div class="admin-header">
+                    <div>
+                        <h1 class="admin-title"><i class="fas fa-sliders-h" style="color: #ff2a4b;"></i> CONFIGURACIÓN DEL SISTEMA</h1>
+                        <span class="user-badge" id="loggedUserBadge"><i class="fas fa-user-shield"></i> Admin: keviin</span>
+                    </div>
+                    <button class="btn btn-secondary" onclick="logout()"><i class="fas fa-sign-out-alt"></i> CERRAR SESIÓN</button>
+                </div>
+
+                <div class="admin-tabs">
+                    <button class="atab-btn active" onclick="switchTab('general', this)">General & Inicio</button>
+                    <button class="atab-btn" onclick="switchTab('audio', this)">Música & Reproductor</button>
+                    <button class="atab-btn" onclick="switchTab('users', this)">Administradores</button>
+                    <button class="atab-btn" onclick="switchTab('cards', this)">Gestor de Secciones</button>
+                    <button class="atab-btn" onclick="switchTab('trayectoria', this)">Trayectoria & Servidores</button>
+                    <button class="atab-btn" onclick="switchTab('comunidad', this)">Comunidad & Juegos</button>
+                </div>
+
+                <div id="sec-general" class="form-section active">
+                    <div class="form-group">
+                        <label>Nombre / Nickname:</label>
+                        <input type="text" id="cfgName" class="form-input">
+                    </div>
+                    <div class="form-group">
+                        <label>Rol / Subtítulo Corto:</label>
+                        <input type="text" id="cfgRole" class="form-input">
+                    </div>
+                    <div class="form-group">
+                        <label>Etiqueta Discreta del Botón de Control:</label>
+                        <input type="text" id="cfgStealthLabel" class="form-input" placeholder="v2.6.0">
+                    </div>
+                    <div class="form-group">
+                        <label>Biografía / Descripción Principal:</label>
+                        <textarea id="cfgBio" class="form-input" rows="3"></textarea>
+                    </div>
+
+                    <hr style="border:0; border-top:1px solid rgba(255,255,255,0.08); margin:20px 0;">
+                    
+                    <h4 style="color:#ff2a4b; margin-bottom:12px; font-family:'Outfit';">Viñetas / Puntos Clave del Inicio</h4>
+                    <div id="bulletsManagerList"></div>
+                    <button class="btn btn-secondary" style="margin-bottom:20px;" onclick="addBulletRow()"><i class="fas fa-plus"></i> Añadir Viñeta</button>
+
+                    <hr style="border:0; border-top:1px solid rgba(255,255,255,0.08); margin:20px 0;">
+
+                    <h4 style="color:#ff2a4b; margin-bottom:12px; font-family:'Outfit';">Métricas del Inicio (Números Destacados)</h4>
+                    <div id="metricsManagerList"></div>
+                    <button class="btn btn-secondary" style="margin-bottom:20px;" onclick="addMetricRow()"><i class="fas fa-plus"></i> Añadir Métrica</button>
+                </div>
+
+                <div id="sec-audio" class="form-section">
+                    <h3 style="color: #fff; margin-bottom: 10px; font-family:'Outfit';">Música de Fondo & Estilo</h3>
+                    <div class="form-group">
+                        <label>Título de la Canción (se muestra en el widget):</label>
+                        <input type="text" id="cfgSongTitle" class="form-input" placeholder="After Dark × Sweater Weather">
+                    </div>
+                    <div class="form-group">
+                        <label>URL / Enlace Directo del Audio MP3:</label>
+                        <input type="text" id="cfgSongUrl" class="form-input" placeholder="https://... o audio/cancion.mp3">
+                    </div>
+                    <div class="form-group">
+                        <label>Color Temático de la Web:</label>
+                        <input type="color" id="cfgThemeColor" class="form-input" style="height:45px; cursor:pointer;" value="#ff2a4b">
+                    </div>
+                </div>
+
+                <div id="sec-users" class="form-section">
+                    <h3 style="color: #fff; margin-bottom: 10px; font-family:'Outfit';">Cuentas de Administrador</h3>
+                    <div id="usersManagerList"></div>
+                    <button class="btn btn-secondary" onclick="addNewAdminUser()"><i class="fas fa-user-plus"></i> Crear Nuevo Administrador</button>
+                </div>
+
+                <div id="sec-cards" class="form-section">
+                    <h3 style="color: #fff; margin-bottom: 10px; font-family:'Outfit';">Gestor de Secciones</h3>
+                    <div id="cardsManagerList"></div>
+                    <button class="btn btn-secondary" onclick="addNewCustomCard()"><i class="fas fa-plus"></i> Añadir Sección Personalizada</button>
+                </div>
+
+                <div id="sec-trayectoria" class="form-section">
+                    <h3 style="color: #fff; margin-bottom: 10px; font-family:'Outfit';">Servidores, Rangos y Logros</h3>
+                    <div id="trajectoryManagerList"></div>
+                    <button class="btn btn-secondary" onclick="addTrajectoryRow()"><i class="fas fa-plus"></i> Añadir Servidor</button>
+                </div>
+
+                <div id="sec-comunidad" class="form-section">
+                    <div class="form-group">
+                        <label>Descripción de la Comunidad:</label>
+                        <textarea id="cfgCommDesc" class="form-input" rows="2"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label>Cantidad de Miembros:</label>
+                        <input type="text" id="cfgCommMembers" class="form-input">
+                    </div>
+                    <div class="form-group">
+                        <label>Enlace de Invitación de Discord:</label>
+                        <input type="text" id="cfgCommLink" class="form-input">
+                    </div>
+
+                    <hr style="border: 0; border-top: 1px solid rgba(255,255,255,0.1); margin: 20px 0;">
+                    <h4 style="color:#ff2a4b; margin-bottom:12px; font-family:'Outfit';">Juegos Activos en la Comunidad</h4>
+                    <div id="chillGamesManagerList"></div>
+                    <button class="btn btn-secondary" style="margin-bottom:20px;" onclick="addChillGameRow()"><i class="fas fa-plus"></i> Añadir Juego</button>
+
+                    <hr style="border: 0; border-top: 1px solid rgba(255,255,255,0.1); margin: 20px 0;">
+                    <h4 style="color:#ff2a4b; margin-bottom:12px; font-family:'Outfit';">Testimonios de Dueños de Servidores</h4>
+                    <div id="testimonialsManagerList"></div>
+                    <button class="btn btn-secondary" style="margin-bottom:20px;" onclick="addTestimonialRow()"><i class="fas fa-plus"></i> Añadir Testimonio</button>
+                </div>
+
+                <div style="display: flex; gap: 15px; margin-top: 30px; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 20px;">
+                    <button class="btn btn-primary" onclick="saveAllSettings()"><i class="fas fa-save"></i> Guardar Cambios</button>
+                    <button class="btn btn-secondary" onclick="exportJSON()"><i class="fas fa-download"></i> Exportar Config (JSON)</button>
+                    <button class="btn btn-secondary" onclick="importJSON()"><i class="fas fa-upload"></i> Importar Config</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <script src="js/admin.js"></script>
+</body>
+</html>
