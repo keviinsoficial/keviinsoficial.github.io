@@ -6,7 +6,7 @@
     <title>Keviin - Portafolio Profesional</title>
     <!-- FAVICON REDONDO ROJO DE KEVIIN -->
     <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='45' fill='%2308080a'/><circle cx='50' cy='50' r='20' fill='%23ff2a4b'/></svg>">
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700&family=Outfit:wght@400;600;700;800;900&family=Space+Grotesk:wght@600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;800;900&family=Space+Grotesk:wght@600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="css/styles.css">
 </head>
@@ -24,25 +24,26 @@
 
     <nav class="navbar">
         <div class="logo">
-            <span class="k-icon-fancy">K</span><span class="logo-accent" id="logoText">eviin</span>
+            <span class="logo-accent" id="logoText">Keviin</span>
             <span class="status-dot"></span>
         </div>
         
         <div class="nav-links" id="navigationMenu"></div>
         
         <div class="navbar-right-group">
-            <!-- GLOBITO UNIFICADO (VISITAS Y MÚSICA) -->
+            <!-- GLOBITO UNIFICADO DE VISITAS Y MÚSICA -->
             <div class="unified-status-pill" id="musicPlayerBtn" onclick="toggleMusic()">
-                <div class="views-section">
-                    <i class="far fa-eye"></i>
-                    <span id="visitorCounterNum" class="visitor-num">1,429</span>
+                <div class="visitor-counter-badge" title="Visitas totales">
+                    <i class="fas fa-eye"></i> <span id="visitorCounterNum" class="visitor-num">1,429</span>
                 </div>
                 <div class="pill-divider"></div>
-                <div class="music-section">
-                    <div class="equalizer-bars" id="musicBars">
+                <div class="music-player-widget">
+                    <div class="music-bars" id="musicBars">
                         <span></span><span></span><span></span>
                     </div>
-                    <span class="song-title" id="songTitleDisplay">Música de fondo</span>
+                    <div class="music-info">
+                        <span class="song-title" id="songTitleDisplay">After Dark × Sweater Weather</span>
+                    </div>
                 </div>
             </div>
         </div>
