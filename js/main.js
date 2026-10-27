@@ -20,7 +20,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (musicPill) {
         musicPill.addEventListener('click', () => {
             if (!audio) {
-                alert('No hay música configurada. Ve al panel portal.html para guardar una canción.');
+                alert('No hay música guardada. Ve al panel portal.html e ingresa la URL o archivo de audio.');
                 return;
             }
 
@@ -29,8 +29,8 @@ document.addEventListener('DOMContentLoaded', () => {
                     isPlaying = true;
                     musicPill.classList.add('playing');
                 }).catch(err => {
-                    console.error('Error de reproducción:', err);
-                    alert('Error al reproducir el archivo de audio. Verifica el formato o el enlace.');
+                    console.error('Error al reproducir audio:', err);
+                    alert('No se pudo reproducir la música. Asegúrate de ingresar un enlace directo .mp3 válido.');
                 });
             } else {
                 audio.pause();
