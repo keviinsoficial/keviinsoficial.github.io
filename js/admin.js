@@ -44,8 +44,9 @@ document.addEventListener('DOMContentLoaded', () => {
 function openTab(tabName, btn) {
     document.querySelectorAll('.tab-pane').forEach(p => p.classList.remove('active'));
     document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-    document.getElementById(`tab-${tabName}`).classList.add('active');
-    btn.classList.add('active');
+    const target = document.getElementById(`tab-${tabName}`);
+    if (target) target.classList.add('active');
+    if (btn) btn.classList.add('active');
 }
 
 function showFileName(input, targetId) {
@@ -61,18 +62,18 @@ function loadAllAdminData() {
         try { cfg = Object.assign({}, defaultConfig, JSON.parse(saved)); } catch(e){}
     }
 
-    document.getElementById('cfgName').value = cfg.name || "Keviin";
-    document.getElementById('cfgRole').value = cfg.role || "";
-    document.getElementById('cfgDiscord').value = cfg.discordTag || "Keviin";
-    document.getElementById('cfgBio').value = cfg.bio || "";
-    document.getElementById('cfgAvatarUrl').value = cfg.avatarUrl || "";
+    if (document.getElementById('cfgName')) document.getElementById('cfgName').value = cfg.name || "Keviin";
+    if (document.getElementById('cfgRole')) document.getElementById('cfgRole').value = cfg.role || "";
+    if (document.getElementById('cfgDiscord')) document.getElementById('cfgDiscord').value = cfg.discordTag || "Keviin";
+    if (document.getElementById('cfgBio')) document.getElementById('cfgBio').value = cfg.bio || "";
+    if (document.getElementById('cfgAvatarUrl')) document.getElementById('cfgAvatarUrl').value = cfg.avatarUrl || "";
 
-    document.getElementById('cfgSongTitle').value = cfg.songTitle || "";
-    document.getElementById('cfgSongUrl').value = cfg.songUrl || "";
+    if (document.getElementById('cfgSongTitle')) document.getElementById('cfgSongTitle').value = cfg.songTitle || "";
+    if (document.getElementById('cfgSongUrl')) document.getElementById('cfgSongUrl').value = cfg.songUrl || "";
 
-    document.getElementById('cfgCommDesc').value = cfg.communityDesc || "";
-    document.getElementById('cfgCommMembers').value = cfg.communityMembers || "1,450+";
-    document.getElementById('cfgCommLink').value = cfg.communityLink || "";
+    if (document.getElementById('cfgCommDesc')) document.getElementById('cfgCommDesc').value = cfg.communityDesc || "";
+    if (document.getElementById('cfgCommMembers')) document.getElementById('cfgCommMembers').value = cfg.communityMembers || "1,450+";
+    if (document.getElementById('cfgCommLink')) document.getElementById('cfgCommLink').value = cfg.communityLink || "";
 
     renderBullets(cfg.bullets || []);
     renderMetrics(cfg.metrics || []);
@@ -84,12 +85,14 @@ function loadAllAdminData() {
 /* RENDERIZADORES DE CAMPOS DINÁMICOS */
 function renderBullets(list) {
     const box = document.getElementById('bulletsContainer');
+    if (!box) return;
     box.innerHTML = '';
     list.forEach((val) => addBulletField(val));
 }
 
 function addBulletField(val = '') {
     const box = document.getElementById('bulletsContainer');
+    if (!box) return;
     const div = document.createElement('div');
     div.className = 'dynamic-item';
     div.innerHTML = `
@@ -102,12 +105,14 @@ function addBulletField(val = '') {
 
 function renderMetrics(list) {
     const box = document.getElementById('metricsContainer');
+    if (!box) return;
     box.innerHTML = '';
     list.forEach((m) => addMetricField(m.num, m.label));
 }
 
 function addMetricField(num = '', label = '') {
     const box = document.getElementById('metricsContainer');
+    if (!box) return;
     const div = document.createElement('div');
     div.className = 'dynamic-item';
     div.innerHTML = `
@@ -120,12 +125,14 @@ function addMetricField(num = '', label = '') {
 
 function renderTrajectory(list) {
     const box = document.getElementById('trajectoryContainer');
+    if (!box) return;
     box.innerHTML = '';
     list.forEach((s) => addServerField(s.server, s.role, s.status, s.achievement));
 }
 
 function addServerField(server = '', role = '', status = 'ACTUAL', achievement = '') {
     const box = document.getElementById('trajectoryContainer');
+    if (!box) return;
     const div = document.createElement('div');
     div.className = 'dynamic-item';
     div.style.flexDirection = 'column';
@@ -144,12 +151,14 @@ function addServerField(server = '', role = '', status = 'ACTUAL', achievement =
 
 function renderTestimonials(list) {
     const box = document.getElementById('testimonialsContainer');
+    if (!box) return;
     box.innerHTML = '';
     list.forEach((t) => addTestimonialField(t.author, t.role, t.text));
 }
 
 function addTestimonialField(author = '', role = '', text = '') {
     const box = document.getElementById('testimonialsContainer');
+    if (!box) return;
     const div = document.createElement('div');
     div.className = 'dynamic-item';
     div.style.flexDirection = 'column';
@@ -167,12 +176,14 @@ function addTestimonialField(author = '', role = '', text = '') {
 
 function renderGames(list) {
     const box = document.getElementById('gamesContainer');
+    if (!box) return;
     box.innerHTML = '';
     list.forEach((g) => addGameField(g.name, g.status));
 }
 
 function addGameField(name = '', status = 'Activo') {
     const box = document.getElementById('gamesContainer');
+    if (!box) return;
     const div = document.createElement('div');
     div.className = 'dynamic-item';
     div.innerHTML = `
@@ -183,23 +194,27 @@ function addGameField(name = '', status = 'Activo') {
     box.appendChild(div);
 }
 
-/* GUARDADO MASTER INTEGRADO CON PROCESAMIENTO BASE64 DE ARCHIVOS LOCALES */
+/* GUARDADO ROBUSTO Y GARANTIZADO */
 function saveEverything() {
     let saved = localStorage.getItem('keviin_portfolio_cfg');
     let cfg = saved ? JSON.parse(saved) : Object.assign({}, defaultConfig);
 
-    cfg.name = document.getElementById('cfgName').value;
-    cfg.role = document.getElementById('cfgRole').value;
-    cfg.discordTag = document.getElementById('cfgDiscord').value;
-    cfg.bio = document.getElementById('cfgBio').value;
-    cfg.avatarUrl = document.getElementById('cfgAvatarUrl').value;
+    if (document.getElementById('cfgName')) cfg.name = document.getElementById('cfgName').value;
+    if (document.getElementById('cfgRole')) cfg.role = document.getElementById('cfgRole').value;
+    if (document.getElementById('cfgDiscord')) cfg.discordTag = document.getElementById('cfgDiscord').value;
+    if (document.getElementById('cfgBio')) cfg.bio = document.getElementById('cfgBio').value;
+    if (document.getElementById('cfgAvatarUrl') && document.getElementById('cfgAvatarUrl').value.trim() !== '') {
+        cfg.avatarUrl = document.getElementById('cfgAvatarUrl').value.trim();
+    }
 
-    cfg.songTitle = document.getElementById('cfgSongTitle').value;
-    cfg.songUrl = document.getElementById('cfgSongUrl').value;
+    if (document.getElementById('cfgSongTitle')) cfg.songTitle = document.getElementById('cfgSongTitle').value;
+    if (document.getElementById('cfgSongUrl') && document.getElementById('cfgSongUrl').value.trim() !== '') {
+        cfg.songUrl = document.getElementById('cfgSongUrl').value.trim();
+    }
 
-    cfg.communityDesc = document.getElementById('cfgCommDesc').value;
-    cfg.communityMembers = document.getElementById('cfgCommMembers').value;
-    cfg.communityLink = document.getElementById('cfgCommLink').value;
+    if (document.getElementById('cfgCommDesc')) cfg.communityDesc = document.getElementById('cfgCommDesc').value;
+    if (document.getElementById('cfgCommMembers')) cfg.communityMembers = document.getElementById('cfgCommMembers').value;
+    if (document.getElementById('cfgCommLink')) cfg.communityLink = document.getElementById('cfgCommLink').value;
 
     // Recolectar Viñetas
     cfg.bullets = Array.from(document.querySelectorAll('.bullet-val')).map(i => i.value).filter(v => v.trim() !== '');
@@ -253,13 +268,20 @@ function saveEverything() {
         });
     });
 
-    const fileAvatar = document.getElementById('fileAvatarInput').files[0];
-    const fileAudio = document.getElementById('fileAudioInput').files[0];
+    const fileAvatarInput = document.getElementById('fileAvatarInput');
+    const fileAudioInput = document.getElementById('fileAudioInput');
 
-    const finish = () => {
-        localStorage.setItem('keviin_portfolio_cfg', JSON.stringify(cfg));
-        alert('¡TODOS LOS CAMBIOS SE GUARDARON CORRECTAMENTE! Redirigiendo a la web...');
-        window.location.href = 'index.html';
+    const fileAvatar = (fileAvatarInput && fileAvatarInput.files) ? fileAvatarInput.files[0] : null;
+    const fileAudio = (fileAudioInput && fileAudioInput.files) ? fileAudioInput.files[0] : null;
+
+    const commitSave = () => {
+        try {
+            localStorage.setItem('keviin_portfolio_cfg', JSON.stringify(cfg));
+            alert('¡TODOS LOS CAMBIOS SE GUARDARON CORRECTAMENTE!');
+            window.location.href = 'index.html';
+        } catch (e) {
+            alert('Atención: El archivo de audio local es muy pesado para el almacenamiento interno del navegador. Para canciones completas te recomendamos pegar un enlace .mp3 directo en la casilla derecha.');
+        }
     };
 
     if (fileAvatar && fileAudio) {
@@ -269,7 +291,7 @@ function saveEverything() {
             const r2 = new FileReader();
             r2.onload = (e2) => {
                 cfg.songUrl = e2.target.result;
-                finish();
+                commitSave();
             };
             r2.readAsDataURL(fileAudio);
         };
@@ -278,17 +300,17 @@ function saveEverything() {
         const r1 = new FileReader();
         r1.onload = (e1) => {
             cfg.avatarUrl = e1.target.result;
-            finish();
+            commitSave();
         };
         r1.readAsDataURL(fileAvatar);
     } else if (fileAudio) {
         const r2 = new FileReader();
         r2.onload = (e2) => {
             cfg.songUrl = e2.target.result;
-            finish();
+            commitSave();
         };
         r2.readAsDataURL(fileAudio);
     } else {
-        finish();
+        commitSave();
     }
 }

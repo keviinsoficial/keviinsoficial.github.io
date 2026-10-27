@@ -480,28 +480,58 @@ body {
 }
 
 
-/* GLOBITO UNIFICADO (VISITAS + MÚSICA) */
-.unified-status-pill {
+/* 1. K ESTILIZADA / FUENTE CINZEL LINDA */
+.k-fancy-letter {
+    font-family: 'Cinzel', serif;
+    font-size: 32px;
+    font-weight: 800;
+    color: var(--accent-color, #ff2a4b);
+    text-shadow: 0 0 16px rgba(255, 42, 75, 0.8), 0 0 30px rgba(255, 42, 75, 0.4);
+    letter-spacing: -1px;
+    margin-right: 1px;
+}
+
+/* 2. GLOBITO UNIFICADO (CONTADOR Y REPRODUCTOR EN UN SOLO CONTENEDOR) */
+.unified-music-pill {
     display: flex;
     align-items: center;
     background: rgba(255, 255, 255, 0.04);
     border: 1px solid rgba(255, 42, 75, 0.35);
-    border-radius: 20px;
-    padding: 6px 16px;
-    gap: 12px;
+    padding: 6px 18px;
+    border-radius: 30px;
     cursor: pointer;
+    position: relative;
     transition: all 0.3s ease;
+    gap: 12px;
 }
 
-.unified-status-pill:hover {
+.unified-music-pill:hover {
     background: rgba(255, 42, 75, 0.12);
     border-color: var(--accent-color);
-    box-shadow: 0 0 18px var(--accent-glow);
+    box-shadow: 0 0 20px var(--accent-glow);
     transform: translateY(-1px);
 }
 
-.pill-divider {
+.visitor-counter-part {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 13px;
+    color: #a0a0b0;
+}
+
+.visitor-counter-part i {
+    color: var(--accent-color);
+}
+
+.pill-divider-line {
     width: 1px;
     height: 16px;
-    background: rgba(255, 255, 255, 0.15);
+    background: rgba(255, 255, 255, 0.2);
+}
+
+.music-player-part {
+    display: flex;
+    align-items: center;
+    gap: 8px;
 }

@@ -173,7 +173,7 @@ function loadConfig() {
 
 function renderApp() {
     const logoEl = document.getElementById('logoText');
-    if (logoEl) logoEl.innerText = "Keviin";
+    if (logoEl) logoEl.innerText = "eviin";
 
     const navMenu = document.getElementById('navigationMenu');
     if (!navMenu) return;
