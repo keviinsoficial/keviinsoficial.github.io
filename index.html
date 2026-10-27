@@ -4,99 +4,55 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Keviin - Portafolio Profesional</title>
-    <link rel="stylesheet" href="css/styles.css">
+    <!-- FAVICON REDONDO ROJO DE KEVIIN -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='45' fill='%2308080a'/><circle cx='50' cy='50' r='20' fill='%23ff2a4b'/></svg>">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700&family=Outfit:wght@400;600;700;800;900&family=Space+Grotesk:wght@600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700&family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
-    <header class="top-bar">
-        <div class="brand-logo">
-            <span class="k-icon">K</span>
-            <span class="brand-name">eviin</span>
+
+    <div class="background-effects">
+        <div class="grid-overlay"></div>
+        <div class="glow-orb orb-1" id="orb1"></div>
+        <div class="glow-orb orb-2" id="orb2"></div>
+        <div id="particlesContainer" class="particles-container"></div>
+    </div>
+
+    <!-- REPRODUCTOR DE AUDIO -->
+    <audio id="bgMusic" loop preload="auto"></audio>
+
+    <nav class="navbar">
+        <div class="logo">
+            <span class="k-icon-fancy">K</span><span class="logo-accent" id="logoText">eviin</span>
+            <span class="status-dot"></span>
         </div>
-
-        <nav class="main-nav">
-            <a href="#inicio" class="nav-btn"><i class="fas fa-home"></i> INICIO</a>
-            <a href="#trayectoria" class="nav-btn active"><i class="fas fa-history"></i> TRAYECTORIA</a>
-            <a href="#comunidad" class="nav-btn"><i class="fas fa-users"></i> COMUNIDAD</a>
-            <a href="#contacto" class="nav-btn"><i class="fas fa-paper-plane"></i> CONTACTO</a>
-        </nav>
-
-        <div class="unified-status-pill" id="music-pill-toggle">
-            <div class="views-section">
-                <i class="far fa-eye"></i>
-                <span id="visit-counter">1429</span>
-            </div>
-            <div class="divider"></div>
-            <div class="music-section">
-                <div class="equalizer-bars">
-                    <span></span><span></span><span></span>
+        
+        <div class="nav-links" id="navigationMenu"></div>
+        
+        <div class="navbar-right-group">
+            <!-- GLOBITO UNIFICADO (VISITAS Y MÚSICA) -->
+            <div class="unified-status-pill" id="musicPlayerBtn" onclick="toggleMusic()">
+                <div class="views-section">
+                    <i class="far fa-eye"></i>
+                    <span id="visitorCounterNum" class="visitor-num">1,429</span>
                 </div>
-                <span id="current-song-title">Música de fondo</span>
+                <div class="pill-divider"></div>
+                <div class="music-section">
+                    <div class="equalizer-bars" id="musicBars">
+                        <span></span><span></span><span></span>
+                    </div>
+                    <span class="song-title" id="songTitleDisplay">Música de fondo</span>
+                </div>
             </div>
         </div>
-    </header>
+    </nav>
 
-    <main class="main-content">
-        <section id="trayectoria" class="section-card">
-            <div class="section-header">
-                <h2><i class="fas fa-shield-alt icon-red"></i> TRAYECTORIA Y SERVIDORES</h2>
-                <p class="section-desc">
-                    Proyectos principales donde he ejercido liderazgo, SS Management y control de calidad de usuarios.
-                </p>
-            </div>
-
-            <div class="servers-grid">
-                <div class="server-card">
-                    <div class="server-icon"><i class="fas fa-shield-alt"></i></div>
-                    <div class="server-info">
-                        <div class="server-top">
-                            <h3>Screen Share Alliance</h3>
-                            <span class="badge-status">ACTUAL</span>
-                        </div>
-                        <span class="server-role">Ss Trainer</span>
-                        <p class="server-desc">En Aprendizaje constante y en busca de ser verificado</p>
-                    </div>
-                </div>
-
-                <div class="server-card">
-                    <div class="server-icon"><i class="fas fa-shield-alt"></i></div>
-                    <div class="server-info">
-                        <div class="server-top">
-                            <h3>Holypvp</h3>
-                            <span class="badge-status">ACTUAL</span>
-                        </div>
-                        <span class="server-role">Staff Team</span>
-                        <p class="server-desc">Rango Senior Mod. Moderación activa de modalidades competitivas y soporte técnico.</p>
-                    </div>
-                </div>
-
-                <div class="server-card">
-                    <div class="server-icon"><i class="fas fa-shield-alt"></i></div>
-                    <div class="server-info">
-                        <div class="server-top">
-                            <h3>Vitalismc</h3>
-                            <span class="badge-status">ACTUAL</span>
-                        </div>
-                        <span class="server-role">Staff Team</span>
-                        <p class="server-desc">Rango Senior Mod. Moderación activa de modalidades competitivas y soporte técnico.</p>
-                    </div>
-                </div>
-
-                <div class="server-card">
-                    <div class="server-icon"><i class="fas fa-shield-alt"></i></div>
-                    <div class="server-info">
-                        <div class="server-top">
-                            <h3>Dynamicpvp</h3>
-                            <span class="badge-status">ACTUAL</span>
-                        </div>
-                        <span class="server-role">Ss Team</span>
-                        <p class="server-desc">Rango Beginner. En proceso de staff</p>
-                    </div>
-                </div>
-            </div>
-        </section>
+    <main class="main-container">
+        <div id="cardsStage" class="cards-stage"></div>
     </main>
+
+    <div class="toast" id="toastNotification">Copiado al portapapeles</div>
 
     <script src="js/main.js"></script>
 </body>
