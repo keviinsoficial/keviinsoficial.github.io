@@ -39,7 +39,6 @@ const defaultTestimonials = [
     { author: "Manager PlayClub", role: "Administrador General", text: "Excelente organización en la comunidad y resolución rápida de reportes de cheaters." }
 ];
 
-// Reemplazado avatar imgur roto con un avatarSVG / placeholder confiable local
 const fallbackAvatar = "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='300' height='300' viewBox='0 0 300 300'><rect width='300' height='300' fill='%23121218'/><circle cx='150' cy='110' r='55' fill='%23ff2a4b'/><path d='M60 260 C60 200, 240 200, 240 260 Z' fill='%23ff2a4b'/></svg>";
 
 const defaultConfig = {
@@ -50,7 +49,7 @@ const defaultConfig = {
     discordTag: "Keviin",
     themeColor: "#ff2a4b",
     songTitle: "After Dark × Sweater Weather",
-    songUrl: "https://cdn.pixabay.com/download/audio/2022/05/27/audio_1808fbf07a.mp3?filename=lofi-study-112191.mp3",
+    songUrl: "audio/cancion.mp3",
     bullets: defaultBullets,
     metrics: defaultMetrics,
     communityDesc: "Unete a mi comunidad de discord, siempre estoy disponible para hablar o jugar.",
@@ -137,7 +136,6 @@ function toggleMusic() {
             widget.classList.add('playing');
             if (tooltip) tooltip.innerText = 'Click para pausar';
         }).catch(err => {
-            console.log("Auto-play prevenido por el navegador. Click para interactuar.");
             showToast('Haz click de nuevo para reproducir audio');
         });
     }
@@ -147,14 +145,12 @@ function initFunctionalVisitorCounter() {
     const counterEl = document.getElementById('visitorCounterNum');
     if (!counterEl) return;
 
-    let localVisits = parseInt(localStorage.getItem('keviin_real_visits') || '1421');
-    
+    let localVisits = parseInt(localStorage.getItem('keviin_real_visits') || '1425');
     if (!sessionStorage.getItem('keviin_visit_counted')) {
         localVisits += 1;
         localStorage.setItem('keviin_real_visits', localVisits);
         sessionStorage.setItem('keviin_visit_counted', 'true');
     }
-    
     counterEl.innerText = localVisits.toLocaleString();
 }
 
@@ -285,7 +281,7 @@ function buildCardHTML(card) {
                 <a href="${appConfig.communityLink || 'https://discord.gg/'}" target="_blank" class="btn btn-primary"><i class="fab fa-discord"></i> UNIRSE AL DISCORD</a>
             </div>
 
-            <h3 style="font-size:15px; color:#fff; font-family:'Outfit'; margin-top:15px;">LO QUE DICEN LOS OWNERS</h3>
+            <h3 style="font-size:16px; color:#fff; font-family:'Outfit'; margin-top:20px; font-weight:700; letter-spacing:0.5px;">LO QUE DICEN LOS OWNERS</h3>
             <div class="testimonials-grid">
                 ${(appConfig.testimonials || []).map(t => `
                     <div class="testimonial-card">
@@ -298,7 +294,7 @@ function buildCardHTML(card) {
                 `).join('')}
             </div>
 
-            <h3 style="margin-top:20px; font-size:15px; color:#fff; font-family:'Outfit';">JUEGOS ACTIVOS EN COMUNIDAD</h3>
+            <h3 style="margin-top:24px; font-size:16px; color:#fff; font-family:'Outfit'; font-weight:700; letter-spacing:0.5px;">JUEGOS ACTIVOS EN COMUNIDAD</h3>
             <div class="chill-games-grid">
                 ${gamesList.map(g => `
                     <div class="game-badge">
