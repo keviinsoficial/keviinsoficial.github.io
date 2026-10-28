@@ -145,12 +145,17 @@ function initFunctionalVisitorCounter() {
     const counterEl = document.getElementById('visitorCounterNum');
     if (!counterEl) return;
 
-    let localVisits = parseInt(localStorage.getItem('keviin_real_visits') || '1425');
-    if (!sessionStorage.getItem('keviin_visit_counted')) {
-        localVisits += 1;
-        localStorage.setItem('keviin_real_visits', localVisits);
-        sessionStorage.setItem('keviin_visit_counted', 'true');
+    let visits = parseInt(localStorage.getItem('keviin_visits_count') || '1431');
+    
+    // Contar una visita real por sesión
+    if (!sessionStorage.getItem('keviin_visited_session')) {
+        visits += 1;
+        localStorage.setItem('keviin_visits_count', visits.toString());
+        sessionStorage.setItem('keviin_visited_session', 'true');
     }
+    
+    counterEl.innerText = visits.toLocaleString();
+}
     counterEl.innerText = localVisits.toLocaleString();
 }
 
@@ -173,7 +178,7 @@ function loadConfig() {
 
 function renderApp() {
     const logoEl = document.getElementById('logoText');
-    if (logoEl) logoEl.innerText = "eviin";
+    if (logoEl) logoEl.innerText = "Keviin";
 
     const navMenu = document.getElementById('navigationMenu');
     if (!navMenu) return;

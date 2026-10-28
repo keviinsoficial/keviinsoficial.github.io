@@ -480,24 +480,13 @@ body {
 }
 
 
-/* 1. K ESTILIZADA / FUENTE CINZEL LINDA */
-.k-fancy-letter {
-    font-family: 'Cinzel', serif;
-    font-size: 32px;
-    font-weight: 800;
-    color: var(--accent-color, #ff2a4b);
-    text-shadow: 0 0 16px rgba(255, 42, 75, 0.8), 0 0 30px rgba(255, 42, 75, 0.4);
-    letter-spacing: -1px;
-    margin-right: 1px;
-}
-
-/* 2. GLOBITO UNIFICADO (CONTADOR Y REPRODUCTOR EN UN SOLO CONTENEDOR) */
+/* CÁPSULA UNIFICADA DE REPRODUCTOR + CONTADOR DE VISITAS */
 .unified-music-pill {
     display: flex;
     align-items: center;
     background: rgba(255, 255, 255, 0.04);
     border: 1px solid rgba(255, 42, 75, 0.35);
-    padding: 6px 18px;
+    padding: 8px 18px;
     border-radius: 30px;
     cursor: pointer;
     position: relative;
@@ -507,8 +496,8 @@ body {
 
 .unified-music-pill:hover {
     background: rgba(255, 42, 75, 0.12);
-    border-color: var(--accent-color);
-    box-shadow: 0 0 20px var(--accent-glow);
+    border-color: var(--accent-color, #ff2a4b);
+    box-shadow: 0 0 20px var(--accent-glow, rgba(255, 42, 75, 0.4));
     transform: translateY(-1px);
 }
 
@@ -517,11 +506,12 @@ body {
     align-items: center;
     gap: 6px;
     font-size: 13px;
-    color: #a0a0b0;
+    font-weight: 700;
+    color: #ffffff;
 }
 
 .visitor-counter-part i {
-    color: var(--accent-color);
+    color: var(--accent-color, #ff2a4b);
 }
 
 .pill-divider-line {
