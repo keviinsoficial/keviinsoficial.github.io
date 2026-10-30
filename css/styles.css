@@ -480,48 +480,122 @@ body {
 }
 
 
-/* CÁPSULA UNIFICADA DE REPRODUCTOR + CONTADOR DE VISITAS */
-.unified-music-pill {
-    display: flex;
-    align-items: center;
-    background: rgba(255, 255, 255, 0.04);
+/* TEXTO DEDICATORIA CHARO / ARACELI TE AMO */
+.dedication-container {
+    text-align: center;
+    margin-top: 15px;
+    margin-bottom: 5px;
+}
+
+.dedication-text {
+    font-family: 'Dancing Script', cursive;
+    font-size: 22px;
+    color: rgba(255, 255, 255, 0.85);
+    letter-spacing: 1px;
+    text-shadow: 0 0 10px rgba(255, 42, 75, 0.4);
+}
+
+/* REPRODUCTOR FLOTANTE ABAJO A LA DERECHA (ESTILO FOTO 1) */
+.bottom-music-widget {
+    position: fixed;
+    bottom: 25px;
+    right: 25px;
+    background: rgba(18, 18, 24, 0.92);
     border: 1px solid rgba(255, 42, 75, 0.35);
-    padding: 8px 18px;
-    border-radius: 30px;
-    cursor: pointer;
-    position: relative;
-    transition: all 0.3s ease;
-    gap: 12px;
-}
-
-.unified-music-pill:hover {
-    background: rgba(255, 42, 75, 0.12);
-    border-color: var(--accent-color, #ff2a4b);
-    box-shadow: 0 0 20px var(--accent-glow, rgba(255, 42, 75, 0.4));
-    transform: translateY(-1px);
-}
-
-.visitor-counter-part {
+    border-radius: 16px;
+    padding: 10px 16px;
     display: flex;
     align-items: center;
-    gap: 6px;
-    font-size: 13px;
-    font-weight: 700;
+    gap: 14px;
+    z-index: 999;
+    backdrop-filter: blur(12px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.bottom-music-widget:hover {
+    border-color: var(--accent-color, #ff2a4b);
+    box-shadow: 0 12px 35px var(--accent-glow, rgba(255, 42, 75, 0.4));
+    transform: translateY(-2px);
+}
+
+.music-play-btn {
+    width: 36px;
+    height: 36px;
+    border-radius: 10px;
+    background: rgba(255, 42, 75, 0.15);
+    border: 1px solid rgba(255, 42, 75, 0.4);
+    color: var(--accent-color, #ff2a4b);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-size: 14px;
+    transition: all 0.2s ease;
+}
+
+.music-play-btn:hover {
+    background: var(--accent-color, #ff2a4b);
     color: #ffffff;
 }
 
-.visitor-counter-part i {
+.bottom-music-details {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    min-width: 140px;
+}
+
+.bottom-song-title {
+    font-family: 'Outfit', sans-serif;
+    font-size: 13px;
+    font-weight: 700;
+    color: #ffffff;
+    max-width: 160px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.bottom-artist-name {
+    font-size: 11px;
+    color: #8a8a9e;
+    max-width: 160px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.music-progress-bar {
+    width: 100%;
+    height: 3px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 2px;
+    margin-top: 4px;
+    overflow: hidden;
+}
+
+.music-progress-fill {
+    width: 0%;
+    height: 100%;
+    background: var(--accent-color, #ff2a4b);
+    transition: width 0.2s linear;
+}
+
+.music-disc-icon {
+    font-size: 18px;
     color: var(--accent-color, #ff2a4b);
-}
-
-.pill-divider-line {
-    width: 1px;
-    height: 16px;
-    background: rgba(255, 255, 255, 0.2);
-}
-
-.music-player-part {
     display: flex;
     align-items: center;
-    gap: 8px;
+    justify-content: center;
+}
+
+.spin-disc.spinning {
+    animation: rotateDisc 3s linear infinite;
+}
+
+@keyframes rotateDisc {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
 }

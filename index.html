@@ -4,9 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Keviin - Portafolio Profesional</title>
-    <!-- FAVICON REDONDO ROJO DE KEVIIN -->
-    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%2308080a'/><text x='50%' y='55%' dominant-baseline='central' text-anchor='middle' fill='%23ff2a4b' font-family='Cinzel, serif' font-weight='bold' font-size='70'>K</text></svg>"><circle cx='50' cy='50' r='45' fill='%2308080a'/><circle cx='50' cy='50' r='20' fill='%23ff2a4b'/></svg>">
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700;800&family=Outfit:wght@400;600;700;800;900&family=Space+Grotesk:wght@600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- FAVICON CON LA K ESTILIZADA EN LA PESTAÑA -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%2308080a'/><text x='50%' y='55%' dominant-baseline='central' text-anchor='middle' fill='%23ff2a4b' font-family='Cinzel, serif' font-weight='bold' font-size='70'>K</text></svg>">
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600&family=Outfit:wght@400;600;700;800;900&family=Space+Grotesk:wght@600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="css/styles.css">
 </head>
@@ -22,34 +22,49 @@
     <!-- REPRODUCTOR DE AUDIO -->
     <audio id="bgMusic" loop preload="auto"></audio>
 
+    <!-- NAVBAR PRINCIPAL -->
     <nav class="navbar">
-        <div class="logo"><span class="logo-accent" id="logoText">Keviin</span><span class="status-dot"></span></div>
+        <div class="logo">
+            <span class="logo-accent" id="logoText">Keviin</span>
+            <span class="status-dot"></span>
+        </div>
         
         <div class="nav-links" id="navigationMenu"></div>
         
         <div class="navbar-right-group">
-            <div class="unified-music-pill" id="musicPlayerBtn" onclick="toggleMusic()">
-                <div class="visitor-counter-part" title="Visitas reales acumuladas">
-                    <i class="fas fa-eye"></i>
-                    <span id="visitorCounterNum" class="visitor-num">1,431</span>
-                </div>
-                <div class="pill-divider-line"></div>
-                <div class="music-player-part">
-                    <div class="music-bars" id="musicBars">
-                        <span></span><span></span><span></span>
-                    </div>
-                    <div class="music-info">
-                        <span class="song-title" id="songTitleDisplay">Música de fondo</span>
-                    </div>
-                </div>
-                <div class="music-tooltip" id="musicTooltip">Click para reproducir / pausar</div>
+            <!-- CONTADOR DE VISITAS EN VIVO EN LA BARRA SUPERIOR -->
+            <div class="visitor-counter-badge" title="Visitas totales">
+                <i class="fas fa-eye"></i> <span id="visitorCounterNum" class="visitor-num">1,431</span>
             </div>
         </div>
     </nav>
 
+    <!-- MENSAJE DEDICATORIA ESTILO CHARO / ARACELI TE AMO -->
+    <div class="dedication-container">
+        <span class="dedication-text">Araceli, te amo ♡</span>
+    </div>
+
+    <!-- CONTENIDO DE LAS TARJETAS / SECCIONES -->
     <main class="main-container">
         <div id="cardsStage" class="cards-stage"></div>
     </main>
+
+    <!-- REPRODUCTOR DE MÚSICA FLOTANTE ABAJO A LA DERECHA (ESTILO FOTO 1) -->
+    <div class="bottom-music-widget" id="musicPlayerBtn" onclick="toggleMusic()">
+        <button class="music-play-btn" id="musicPlayIconBtn" aria-label="Reproducir">
+            <i class="fas fa-play" id="playPauseIcon"></i>
+        </button>
+        <div class="bottom-music-details">
+            <div class="bottom-song-title" id="songTitleDisplay">Casi que me pierdo</div>
+            <div class="bottom-artist-name" id="songArtistDisplay">Música de fondo</div>
+            <div class="music-progress-bar">
+                <div class="music-progress-fill" id="musicProgressFill"></div>
+            </div>
+        </div>
+        <div class="music-disc-icon">
+            <i class="fas fa-compact-disc spin-disc" id="discIcon"></i>
+        </div>
+    </div>
 
     <div class="toast" id="toastNotification">Copiado al portapapeles</div>
 

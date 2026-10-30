@@ -14,10 +14,7 @@ const defaultTrajectory = [
     { server: "Holypvp", role: "Staff Team", status: "ACTUAL", icon: "fa-crosshairs", achievement: "Rango Senior Mod. Moderación activa de modalidades competitivas y soporte técnico." },
     { server: "Vitalismc", role: "Staff Team", status: "ACTUAL", icon: "fa-search", achievement: "Rango Senior Mod. Detección de clientes modificados y control de cheaters." },
     { server: "Dynamicpvp", role: "Ss Team", status: "ACTUAL", icon: "fa-cube", achievement: "Rango Beginner. Protocolos de inspección rápida y auditoría de archivos temporales." },
-    { server: "SoloLegends", role: "SS Manager", status: "ACTUAL", icon: "fa-gamepad", achievement: "Reducción estimada del 40% de cheaters en modalidades PvP competitivas." },
-    { server: "Dinamic MC", role: "SSTeam Specialist", status: "ACTUAL", icon: "fa-search", achievement: "Desarrollo de protocolos de detección rápida de inyecciones y clientes privados." },
-    { server: "PlayClub Network", role: "Community Manager", status: "ACTUAL", icon: "fa-users", achievement: "Coordinación de eventos con picos de +500 usuarios en simultáneo." },
-    { server: "MineNight", role: "SS Manager", status: "ANTERIOR", icon: "fa-server", achievement: "Implementación de filtros antitrampas y entrenamiento de moderadores." }
+    { server: "SoloLegends", role: "SS Manager", status: "ACTUAL", icon: "fa-gamepad", achievement: "Reducción estimada del 40% de cheaters en modalidades PvP competitivas." }
 ];
 
 const defaultCards = [
@@ -48,7 +45,8 @@ const defaultConfig = {
     avatarUrl: fallbackAvatar,
     discordTag: "Keviin",
     themeColor: "#ff2a4b",
-    songTitle: "After Dark × Sweater Weather",
+    songTitle: "Casi que me pierdo",
+    songArtist: "Los Cafres",
     songUrl: "https://cdn.pixabay.com/download/audio/2022/05/27/audio_1808fbf07a.mp3?filename=lofi-study-112191.mp3",
     bullets: defaultBullets,
     metrics: defaultMetrics,
@@ -109,6 +107,7 @@ function initParticles() {
 function initAudioPlayer() {
     const audio = document.getElementById('bgMusic');
     const songLabel = document.getElementById('songTitleDisplay');
+    const songArtistLabel = document.getElementById('songArtistDisplay');
     if (!audio) return;
 
     if (appConfig.songUrl) {
@@ -117,25 +116,41 @@ function initAudioPlayer() {
     if (songLabel) {
         songLabel.innerText = appConfig.songTitle || "Música de fondo";
     }
+    if (songArtistLabel) {
+        songArtistLabel.innerText = appConfig.songArtist || "Artista / Audio";
+    }
+
+    audio.addEventListener('timeupdate', () => {
+        const progressFill = document.getElementById('musicProgressFill');
+        if (progressFill && audio.duration) {
+            const pct = (audio.currentTime / audio.duration) * 100;
+            progressFill.style.width = pct + '%';
+        }
+    });
 }
 
 function toggleMusic() {
     const audio = document.getElementById('bgMusic');
     const widget = document.getElementById('musicPlayerBtn');
-    const tooltip = document.getElementById('musicTooltip');
+    const playIcon = document.getElementById('playPauseIcon');
+    const discIcon = document.getElementById('discIcon');
+
     if (!audio) return;
 
     if (isPlaying) {
         audio.pause();
         isPlaying = false;
-        widget.classList.remove('playing');
-        if (tooltip) tooltip.innerText = 'Click para reproducir';
+        if (widget) widget.classList.remove('playing');
+        if (playIcon) playIcon.className = 'fas fa-play';
+        if (discIcon) discIcon.classList.remove('spinning');
     } else {
         audio.play().then(() => {
             isPlaying = true;
-            widget.classList.add('playing');
-            if (tooltip) tooltip.innerText = 'Click para pausar';
+            if (widget) widget.classList.add('playing');
+            if (playIcon) playIcon.className = 'fas fa-pause';
+            if (discIcon) discIcon.classList.add('spinning');
         }).catch(err => {
+            console.error("Audio error:", err);
             showToast('Haz click de nuevo para reproducir audio');
         });
     }
@@ -146,17 +161,12 @@ function initFunctionalVisitorCounter() {
     if (!counterEl) return;
 
     let visits = parseInt(localStorage.getItem('keviin_visits_count') || '1431');
-    
-    // Contar una visita real por sesión
     if (!sessionStorage.getItem('keviin_visited_session')) {
         visits += 1;
         localStorage.setItem('keviin_visits_count', visits.toString());
         sessionStorage.setItem('keviin_visited_session', 'true');
     }
-    
     counterEl.innerText = visits.toLocaleString();
-}
-    counterEl.innerText = localVisits.toLocaleString();
 }
 
 function loadConfig() {
@@ -252,7 +262,7 @@ function buildCardHTML(card) {
         const trayList = (appConfig.trajectory && appConfig.trajectory.length > 0) ? appConfig.trajectory : defaultTrajectory;
         return `
             <h2 style="font-family:'Outfit', sans-serif; font-size:24px; margin-bottom:6px; color:#fff;"><i class="fas fa-shield-alt" style="color:var(--accent-color);"></i> TRAYECTORIA Y SERVIDORES</h2>
-            <p style="color:#8a8a9e; margin-bottom:20px; font-size:14px;">Proyectos principales donde he ejercido liderazgo, SS Management y control de calidad de usuarios.</p>
+            <p style="color:#8a8a9e; margin-bottom:20px; font-size:14px;">Especializado en Screen Share, moderación de modalidades competitivas, gestión de Staff y auditoría técnica de usuarios en comunidades de alto rendimiento.</p>
             
             <div class="trayectoria-grid">
                 ${trayList.map(item => `
