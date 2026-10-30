@@ -4,7 +4,9 @@ const defaultConfig = {
     bio: "Especialista en seguridad de servidores Minecraft, auditoría de jugadores (Screenshare) y gestión de comunidades masivas.",
     avatarUrl: "",
     discordTag: "Keviin",
-    songTitle: "After Dark × Sweater Weather",
+    dedicationText: "Araceli, te amo ♡",
+    songTitle: "Casi que me pierdo",
+    songArtist: "Los Cafres",
     songUrl: "https://cdn.pixabay.com/download/audio/2022/05/27/audio_1808fbf07a.mp3?filename=lofi-study-112191.mp3",
     communityDesc: "Unete a mi comunidad de discord, siempre estoy disponible para hablar o jugar.",
     communityMembers: "1,450+",
@@ -44,8 +46,9 @@ document.addEventListener('DOMContentLoaded', () => {
 function openTab(tabName, btn) {
     document.querySelectorAll('.tab-pane').forEach(p => p.classList.remove('active'));
     document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-    document.getElementById(`tab-${tabName}`).classList.add('active');
-    btn.classList.add('active');
+    const target = document.getElementById(`tab-${tabName}`);
+    if (target) target.classList.add('active');
+    if (btn) btn.classList.add('active');
 }
 
 function showFileName(input, targetId) {
@@ -61,18 +64,20 @@ function loadAllAdminData() {
         try { cfg = Object.assign({}, defaultConfig, JSON.parse(saved)); } catch(e){}
     }
 
-    document.getElementById('cfgName').value = cfg.name || "Keviin";
-    document.getElementById('cfgRole').value = cfg.role || "";
-    document.getElementById('cfgDiscord').value = cfg.discordTag || "Keviin";
-    document.getElementById('cfgBio').value = cfg.bio || "";
-    document.getElementById('cfgAvatarUrl').value = cfg.avatarUrl || "";
+    if (document.getElementById('cfgDedication')) document.getElementById('cfgDedication').value = cfg.dedicationText || "Araceli, te amo ♡";
+    if (document.getElementById('cfgName')) document.getElementById('cfgName').value = cfg.name || "Keviin";
+    if (document.getElementById('cfgRole')) document.getElementById('cfgRole').value = cfg.role || "";
+    if (document.getElementById('cfgDiscord')) document.getElementById('cfgDiscord').value = cfg.discordTag || "Keviin";
+    if (document.getElementById('cfgBio')) document.getElementById('cfgBio').value = cfg.bio || "";
+    if (document.getElementById('cfgAvatarUrl')) document.getElementById('cfgAvatarUrl').value = cfg.avatarUrl || "";
 
-    document.getElementById('cfgSongTitle').value = cfg.songTitle || "";
-    document.getElementById('cfgSongUrl').value = cfg.songUrl || "";
+    if (document.getElementById('cfgSongTitle')) document.getElementById('cfgSongTitle').value = cfg.songTitle || "";
+    if (document.getElementById('cfgSongArtist')) document.getElementById('cfgSongArtist').value = cfg.songArtist || "";
+    if (document.getElementById('cfgSongUrl')) document.getElementById('cfgSongUrl').value = cfg.songUrl || "";
 
-    document.getElementById('cfgCommDesc').value = cfg.communityDesc || "";
-    document.getElementById('cfgCommMembers').value = cfg.communityMembers || "1,450+";
-    document.getElementById('cfgCommLink').value = cfg.communityLink || "";
+    if (document.getElementById('cfgCommDesc')) document.getElementById('cfgCommDesc').value = cfg.communityDesc || "";
+    if (document.getElementById('cfgCommMembers')) document.getElementById('cfgCommMembers').value = cfg.communityMembers || "1,450+";
+    if (document.getElementById('cfgCommLink')) document.getElementById('cfgCommLink').value = cfg.communityLink || "";
 
     renderBullets(cfg.bullets || []);
     renderMetrics(cfg.metrics || []);
@@ -81,20 +86,21 @@ function loadAllAdminData() {
     renderGames(cfg.chillGames || []);
 }
 
-/* RENDERIZADORES DE CAMPOS DINÁMICOS */
 function renderBullets(list) {
     const box = document.getElementById('bulletsContainer');
+    if (!box) return;
     box.innerHTML = '';
     list.forEach((val) => addBulletField(val));
 }
 
 function addBulletField(val = '') {
     const box = document.getElementById('bulletsContainer');
+    if (!box) return;
     const div = document.createElement('div');
     div.className = 'dynamic-item';
     div.innerHTML = `
         <i class="fas fa-check-circle" style="color:#ff2a4b;"></i>
-        <input type="text" class="bullet-val" value="${val}" placeholder="Punto clave...">
+        <input type="text" class="bullet-val form-control" value="${val}" placeholder="Punto clave...">
         <button type="button" class="btn-remove" onclick="this.parentElement.remove()"><i class="fas fa-trash"></i></button>
     `;
     box.appendChild(div);
@@ -102,17 +108,19 @@ function addBulletField(val = '') {
 
 function renderMetrics(list) {
     const box = document.getElementById('metricsContainer');
+    if (!box) return;
     box.innerHTML = '';
     list.forEach((m) => addMetricField(m.num, m.label));
 }
 
 function addMetricField(num = '', label = '') {
     const box = document.getElementById('metricsContainer');
+    if (!box) return;
     const div = document.createElement('div');
     div.className = 'dynamic-item';
     div.innerHTML = `
-        <input type="text" class="metric-num" value="${num}" placeholder="Número (Ej: 3+ Años)">
-        <input type="text" class="metric-label" value="${label}" placeholder="Etiqueta (Ej: Experiencia)">
+        <input type="text" class="metric-num form-control" value="${num}" placeholder="Número (Ej: 3+ Años)">
+        <input type="text" class="metric-label form-control" value="${label}" placeholder="Etiqueta (Ej: Experiencia)">
         <button type="button" class="btn-remove" onclick="this.parentElement.remove()"><i class="fas fa-trash"></i></button>
     `;
     box.appendChild(div);
@@ -120,91 +128,98 @@ function addMetricField(num = '', label = '') {
 
 function renderTrajectory(list) {
     const box = document.getElementById('trajectoryContainer');
+    if (!box) return;
     box.innerHTML = '';
     list.forEach((s) => addServerField(s.server, s.role, s.status, s.achievement));
 }
 
 function addServerField(server = '', role = '', status = 'ACTUAL', achievement = '') {
     const box = document.getElementById('trajectoryContainer');
+    if (!box) return;
     const div = document.createElement('div');
     div.className = 'dynamic-item';
     div.style.flexDirection = 'column';
     div.style.alignItems = 'stretch';
     div.innerHTML = `
         <div style="display:flex; gap:10px;">
-            <input type="text" class="srv-name" value="${server}" placeholder="Nombre del Servidor">
-            <input type="text" class="srv-role" value="${role}" placeholder="Rango / Rol">
-            <input type="text" class="srv-status" value="${status}" placeholder="ACTUAL o ANTERIOR" style="width:120px;">
+            <input type="text" class="srv-name form-control" value="${server}" placeholder="Nombre del Servidor">
+            <input type="text" class="srv-role form-control" value="${role}" placeholder="Rango / Rol">
+            <input type="text" class="srv-status form-control" value="${status}" placeholder="ACTUAL o ANTERIOR" style="width:120px;">
             <button type="button" class="btn-remove" onclick="this.parentElement.parentElement.remove()"><i class="fas fa-trash"></i></button>
         </div>
-        <input type="text" class="srv-achieve" value="${achievement}" placeholder="Descripción o logro en este servidor..." style="margin-top:6px;">
+        <input type="text" class="srv-achieve form-control" value="${achievement}" placeholder="Descripción o logro..." style="margin-top:6px;">
     `;
     box.appendChild(div);
 }
 
 function renderTestimonials(list) {
     const box = document.getElementById('testimonialsContainer');
+    if (!box) return;
     box.innerHTML = '';
     list.forEach((t) => addTestimonialField(t.author, t.role, t.text));
 }
 
 function addTestimonialField(author = '', role = '', text = '') {
     const box = document.getElementById('testimonialsContainer');
+    if (!box) return;
     const div = document.createElement('div');
     div.className = 'dynamic-item';
     div.style.flexDirection = 'column';
     div.style.alignItems = 'stretch';
     div.innerHTML = `
         <div style="display:flex; gap:10px;">
-            <input type="text" class="tst-author" value="${author}" placeholder="Nombre del Owner/Manager">
-            <input type="text" class="tst-role" value="${role}" placeholder="Cargo / Cargo">
+            <input type="text" class="tst-author form-control" value="${author}" placeholder="Nombre del Owner/Manager">
+            <input type="text" class="tst-role form-control" value="${role}" placeholder="Cargo">
             <button type="button" class="btn-remove" onclick="this.parentElement.parentElement.remove()"><i class="fas fa-trash"></i></button>
         </div>
-        <input type="text" class="tst-text" value="${text}" placeholder="Cita o testimonio..." style="margin-top:6px;">
+        <input type="text" class="tst-text form-control" value="${text}" placeholder="Testimonio..." style="margin-top:6px;">
     `;
     box.appendChild(div);
 }
 
 function renderGames(list) {
     const box = document.getElementById('gamesContainer');
+    if (!box) return;
     box.innerHTML = '';
     list.forEach((g) => addGameField(g.name, g.status));
 }
 
 function addGameField(name = '', status = 'Activo') {
     const box = document.getElementById('gamesContainer');
+    if (!box) return;
     const div = document.createElement('div');
     div.className = 'dynamic-item';
     div.innerHTML = `
-        <input type="text" class="gm-name" value="${name}" placeholder="Nombre del Juego">
-        <input type="text" class="gm-status" value="${status}" placeholder="Estado (Ej: Activo, Noches)">
+        <input type="text" class="gm-name form-control" value="${name}" placeholder="Nombre del Juego">
+        <input type="text" class="gm-status form-control" value="${status}" placeholder="Estado (Ej: Activo, Noches)">
         <button type="button" class="btn-remove" onclick="this.parentElement.remove()"><i class="fas fa-trash"></i></button>
     `;
     box.appendChild(div);
 }
 
-/* GUARDADO MASTER INTEGRADO CON PROCESAMIENTO BASE64 DE ARCHIVOS LOCALES */
 function saveEverything() {
     let saved = localStorage.getItem('keviin_portfolio_cfg');
     let cfg = saved ? JSON.parse(saved) : Object.assign({}, defaultConfig);
 
-    cfg.name = document.getElementById('cfgName').value;
-    cfg.role = document.getElementById('cfgRole').value;
-    cfg.discordTag = document.getElementById('cfgDiscord').value;
-    cfg.bio = document.getElementById('cfgBio').value;
-    cfg.avatarUrl = document.getElementById('cfgAvatarUrl').value;
+    if (document.getElementById('cfgDedication')) cfg.dedicationText = document.getElementById('cfgDedication').value;
+    if (document.getElementById('cfgName')) cfg.name = document.getElementById('cfgName').value;
+    if (document.getElementById('cfgRole')) cfg.role = document.getElementById('cfgRole').value;
+    if (document.getElementById('cfgDiscord')) cfg.discordTag = document.getElementById('cfgDiscord').value;
+    if (document.getElementById('cfgBio')) cfg.bio = document.getElementById('cfgBio').value;
+    if (document.getElementById('cfgAvatarUrl') && document.getElementById('cfgAvatarUrl').value.trim() !== '') {
+        cfg.avatarUrl = document.getElementById('cfgAvatarUrl').value.trim();
+    }
 
-    cfg.songTitle = document.getElementById('cfgSongTitle').value;
-    cfg.songUrl = document.getElementById('cfgSongUrl').value;
+    if (document.getElementById('cfgSongTitle')) cfg.songTitle = document.getElementById('cfgSongTitle').value;
+    if (document.getElementById('cfgSongArtist')) cfg.songArtist = document.getElementById('cfgSongArtist').value;
+    if (document.getElementById('cfgSongUrl')) cfg.songUrl = document.getElementById('cfgSongUrl').value.trim();
 
-    cfg.communityDesc = document.getElementById('cfgCommDesc').value;
-    cfg.communityMembers = document.getElementById('cfgCommMembers').value;
-    cfg.communityLink = document.getElementById('cfgCommLink').value;
+    if (document.getElementById('cfgCommDesc')) cfg.communityDesc = document.getElementById('cfgCommDesc').value;
+    if (document.getElementById('cfgCommMembers')) cfg.communityMembers = document.getElementById('cfgCommMembers').value;
+    if (document.getElementById('cfgCommLink')) cfg.communityLink = document.getElementById('cfgCommLink').value;
 
-    // Recolectar Viñetas
     cfg.bullets = Array.from(document.querySelectorAll('.bullet-val')).map(i => i.value).filter(v => v.trim() !== '');
 
-    // Recolectar Métricas
     const mNums = document.querySelectorAll('.metric-num');
     const mLabels = document.querySelectorAll('.metric-label');
     cfg.metrics = [];
@@ -212,7 +227,6 @@ function saveEverything() {
         if (n.value.trim()) cfg.metrics.push({ num: n.value, label: mLabels[idx].value });
     });
 
-    // Recolectar Servidores
     const sNames = document.querySelectorAll('.srv-name');
     const sRoles = document.querySelectorAll('.srv-role');
     const sStatuses = document.querySelectorAll('.srv-status');
@@ -228,7 +242,6 @@ function saveEverything() {
         });
     });
 
-    // Recolectar Testimonios
     const tAuthors = document.querySelectorAll('.tst-author');
     const tRoles = document.querySelectorAll('.tst-role');
     const tTexts = document.querySelectorAll('.tst-text');
@@ -241,7 +254,6 @@ function saveEverything() {
         });
     });
 
-    // Recolectar Juegos
     const gNames = document.querySelectorAll('.gm-name');
     const gStatuses = document.querySelectorAll('.gm-status');
     cfg.chillGames = [];
@@ -253,42 +265,27 @@ function saveEverything() {
         });
     });
 
-    const fileAvatar = document.getElementById('fileAvatarInput').files[0];
-    const fileAudio = document.getElementById('fileAudioInput').files[0];
+    const fileAvatarInput = document.getElementById('fileAvatarInput');
+    const fileAvatar = (fileAvatarInput && fileAvatarInput.files) ? fileAvatarInput.files[0] : null;
 
-    const finish = () => {
-        localStorage.setItem('keviin_portfolio_cfg', JSON.stringify(cfg));
-        alert('¡TODOS LOS CAMBIOS SE GUARDARON CORRECTAMENTE! Redirigiendo a la web...');
-        window.location.href = 'index.html';
+    const commitSave = () => {
+        try {
+            localStorage.setItem('keviin_portfolio_cfg', JSON.stringify(cfg));
+            alert('¡TODOS LOS CAMBIOS SE GUARDARON CORRECTAMENTE!');
+            window.location.href = 'index.html';
+        } catch (e) {
+            alert('Error al guardar datos. Revisa la consola o intenta con un enlace de imagen válido.');
+        }
     };
 
-    if (fileAvatar && fileAudio) {
+    if (fileAvatar) {
         const r1 = new FileReader();
         r1.onload = (e1) => {
             cfg.avatarUrl = e1.target.result;
-            const r2 = new FileReader();
-            r2.onload = (e2) => {
-                cfg.songUrl = e2.target.result;
-                finish();
-            };
-            r2.readAsDataURL(fileAudio);
+            commitSave();
         };
         r1.readAsDataURL(fileAvatar);
-    } else if (fileAvatar) {
-        const r1 = new FileReader();
-        r1.onload = (e1) => {
-            cfg.avatarUrl = e1.target.result;
-            finish();
-        };
-        r1.readAsDataURL(fileAvatar);
-    } else if (fileAudio) {
-        const r2 = new FileReader();
-        r2.onload = (e2) => {
-            cfg.songUrl = e2.target.result;
-            finish();
-        };
-        r2.readAsDataURL(fileAudio);
     } else {
-        finish();
+        commitSave();
     }
 }

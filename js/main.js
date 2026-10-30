@@ -45,6 +45,7 @@ const defaultConfig = {
     avatarUrl: fallbackAvatar,
     discordTag: "Keviin",
     themeColor: "#ff2a4b",
+    dedicationText: "Araceli, te amo ♡",
     songTitle: "Casi que me pierdo",
     songArtist: "Los Cafres",
     songUrl: "https://cdn.pixabay.com/download/audio/2022/05/27/audio_1808fbf07a.mp3?filename=lofi-study-112191.mp3",
@@ -189,6 +190,9 @@ function loadConfig() {
 function renderApp() {
     const logoEl = document.getElementById('logoText');
     if (logoEl) logoEl.innerText = "Keviin";
+
+    const dedEl = document.getElementById('dedicationTextDisplay');
+    if (dedEl) dedEl.innerText = appConfig.dedicationText || "Araceli, te amo ♡";
 
     const navMenu = document.getElementById('navigationMenu');
     if (!navMenu) return;
